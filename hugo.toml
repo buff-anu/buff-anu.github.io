@@ -1,0 +1,51 @@
+baseURL = "https://buff-anu.github.io/"
+languageCode = "en-us"
+title = "Anubhav Gupta"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+
+[params]
+  description = "Anubhav Gupta — GN&C for atmospheric entry, astrodynamics, and planetary defense. Open-source spacecraft simulation and technical books."
+  name = "Anubhav Gupta"
+  statement = "I work on guidance, navigation and control for vehicles entering atmospheres, along with astrodynamics, proximity operations and planetary defense."
+  affiliation = "Abruan Aerospace LLC · University of Colorado Boulder"
+  location = "Longmont, Colorado"
+  email = "anubhav.gupta@colorado.edu"
+  # Drop a square photo at static/img/profile.jpg and it appears automatically.
+  photo = "img/profile.jpg"
+
+  # The three tracks on the landing page. Edit freely; order is display order.
+  [[params.tracks]]
+    title = "Research"
+    text = "Entry and re-entry GN&C with aero- and plasma-optical modeling, the radio-blackout problem, relative navigation, and multi-spacecraft asteroid deflection."
+    linkText = "Publications"
+    url = "https://publications.anubhavgupta.info/"
+  [[params.tracks]]
+    title = "Software"
+    text = "AbRuAn, a Python framework for spacecraft simulation, and Docker-based workflows that make Basilisk simulations reproducible."
+    linkText = "AbRuAn documentation"
+    url = "https://abruan-documentation.readthedocs.io/en/develop/"
+    altText = "Basilisk work"
+    altUrl = "https://www.anubhavgupta.info/basilisk"
+  [[params.tracks]]
+    title = "Books"
+    text = "Testing of Transformers and Induction Machines, World of Physics, and upcoming titles on spacecraft simulation architecture and hypersonic plasma optics."
+    linkText = "Testing of Transformers and Induction Machines"
+    url = "https://www.anubhavgupta.info/book-ttim/"
+    altText = "Author page"
+    altUrl = "https://www.amazon.com/author/anubhavgupta"
+
+  [[params.links]]
+    name = "Google Scholar"
+    url = "https://scholar.google.com/citations?user=Q8GfBa0AAAAJ&hl=en"
+  [[params.links]]
+    name = "GitHub"
+    url = "https://github.com/buff-anu"
+  [[params.links]]
+    name = "ORCID"
+    url = "https://orcid.org/0000-0002-3216-868X"
+  [[params.links]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/anubhavgupta09/"
+  [[params.links]]
+    name = "ResearchGate"
+    url = "https://www.researchgate.net/profile/Anubhav-Gupta-26"

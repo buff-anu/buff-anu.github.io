@@ -1,0 +1,115 @@
+/* Palette: an upper-atmosphere sky by day, night sky in dark mode.
+   Accent is ionized violet; heat orange only appears on the trajectory. */
+:root {
+  --sky: #eaf0f4;
+  --surface: #f6f9fb;
+  --ink: #15212d;
+  --slate: #5a6a78;
+  --rule: #c9d4dc;
+  --plasma: #4a35c2;
+  --heat: #e8853a;
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sky: #0c1622;
+    --surface: #122030;
+    --ink: #e4ebf1;
+    --slate: #8797a6;
+    --rule: #26384a;
+    --plasma: #9a8cff;
+    --heat: #f29b52;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--sky);
+  color: var(--ink);
+  font: 400 1.0625rem/1.65 var(--body);
+}
+a { color: var(--plasma); text-underline-offset: .2em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--plasma); outline-offset: 3px; border-radius: 2px; }
+
+.wrap { max-width: 68rem; margin: 0 auto; padding: 0 1.25rem; }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2rem;
+  min-height: min(88vh, 46rem);
+  padding: 4rem 0 2rem;
+}
+.photo {
+  width: 7rem; height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  border: 3px solid var(--surface);
+}
+h1 {
+  font: 700 clamp(2.75rem, 7.5vw, 5.5rem)/0.95 var(--display);
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.5rem;
+}
+.statement {
+  font-size: 1.3rem;
+  line-height: 1.5;
+  max-width: 32ch;
+  margin: 0 0 1.25rem;
+}
+.meta { color: var(--slate); margin: 0 0 1.75rem; font-family: var(--display); font-size: .95rem; }
+.profiles {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.25rem;
+  font-family: var(--display); font-size: .95rem;
+}
+
+/* Trajectory figure */
+.trajectory { width: 100%; height: auto; overflow: visible; }
+.layers line { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 6; }
+.layers text {
+  fill: var(--slate); font: 500 12px var(--display);
+  text-anchor: end;
+}
+.path {
+  fill: none; stroke-width: 3; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 0;
+}
+.vehicle { fill: var(--ink); }
+@media (prefers-reduced-motion: no-preference) {
+  .path { animation: descend 2.4s cubic-bezier(.45,.05,.35,1) both; }
+  .sheath, .vehicle { animation: ignite .8s ease-out 1.5s both; }
+  @keyframes descend { from { stroke-dashoffset: 1; } }
+  @keyframes ignite { from { opacity: 0; } }
+}
+
+/* Tracks */
+.tracks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+  padding: 3rem 0 4rem;
+  border-top: 1px solid var(--rule);
+}
+.track h2 {
+  font: 700 1.75rem/1.1 var(--display);
+  letter-spacing: -0.01em;
+  margin: 0 0 .75rem;
+}
+.track p { margin: 0 0 1rem; max-width: 38ch; }
+.track-links { display: flex; flex-direction: column; gap: .35rem; font-family: var(--display); font-weight: 500; }
+
+.footer { color: var(--slate); font: .875rem var(--display); padding-bottom: 2.5rem; }
+
+@media (max-width: 52rem) {
+  .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 3rem; }
+  .trajectory { max-width: 17rem; justify-self: center; order: 2; }
+  .tracks { grid-template-columns: 1fr; gap: 2rem; }
+}

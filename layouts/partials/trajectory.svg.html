@@ -1,0 +1,25 @@
+<svg class="trajectory" viewBox="0 0 520 560" role="img" aria-labelledby="traj-title">
+  <title id="traj-title">An entry trajectory descending through atmospheric layers, heating as it falls</title>
+  <defs>
+    <linearGradient id="heat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--slate)"/>
+      <stop offset=".45" stop-color="var(--heat)"/>
+      <stop offset=".7" stop-color="var(--plasma)"/>
+      <stop offset="1" stop-color="var(--slate)"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="var(--heat)" stop-opacity=".9"/>
+      <stop offset=".5" stop-color="var(--plasma)" stop-opacity=".35"/>
+      <stop offset="1" stop-color="var(--plasma)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g class="layers">
+    <line x1="0" x2="520" y1="60" y2="60"/><text x="516" y="52">120 km</text>
+    <line x1="0" x2="520" y1="200" y2="200"/><text x="516" y="192">80 km</text>
+    <line x1="0" x2="520" y1="340" y2="340"/><text x="516" y="332">40 km</text>
+    <line x1="0" x2="520" y1="480" y2="480"/><text x="516" y="472">10 km</text>
+  </g>
+  <path class="path" pathLength="1" d="M8 14 C 170 40, 300 150, 360 300 S 410 470, 400 548" stroke="url(#heat)"/>
+  <circle class="sheath" cx="362" cy="306" r="46" fill="url(#glow)"/>
+  <circle class="vehicle" cx="362" cy="306" r="6"/>
+</svg>
