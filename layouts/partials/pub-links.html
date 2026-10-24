@@ -1,0 +1,8 @@
+{{- $p := . -}}
+{{- if or $p.links $p.status $p.award -}}
+<p class="pub-links">
+  {{- with $p.status }}<span class="badge">{{ . }}</span>{{ end -}}
+  {{- with $p.award }}<span class="badge award">{{ . }}</span>{{ end -}}
+  {{- range $p.links }}<a href="{{ .url | relURL }}">{{ .label }}</a>{{ end -}}
+</p>
+{{- end -}}

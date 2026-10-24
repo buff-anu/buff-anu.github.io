@@ -22,7 +22,7 @@
       <h2>{{ .title }}</h2>
       <p>{{ .text }}</p>
       <p class="track-links">
-        <a href="{{ .url }}">{{ .linkText }}</a>
+        <a href="{{ $t.url | relURL }}">{{ $t.linkText }}</a>
         {{ with $t.altUrl }}<a href="{{ . }}">{{ $t.altText }}</a>{{ end }}
       </p>
     </article>

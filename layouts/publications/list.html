@@ -1,0 +1,40 @@
+{{ define "main" }}
+{{ $sections := slice
+  (dict "id" "journal" "title" "Journal articles")
+  (dict "id" "conference" "title" "Conference papers")
+  (dict "id" "preprint" "title" "Preprints")
+  (dict "id" "book" "title" "Books")
+  (dict "id" "thesis" "title" "Thesis")
+  (dict "id" "patent" "title" "Patents")
+  (dict "id" "talk" "title" "Talks") }}
+{{ $pages := .RegularPages.ByDate.Reverse }}
+<main class="wrap page">
+  <h1 class="page-title">{{ .Title }}</h1>
+  <nav class="jump" aria-label="Sections">
+    {{ range $sections }}{{ $n := len (where $pages "Params.pub.section" .id) }}{{ if $n }}<a href="#{{ .id }}">{{ .title }} <span class="count">{{ $n }}</span></a>{{ end }}{{ end }}
+  </nav>
+
+  {{ range $sections }}
+  {{ $items := sort (where $pages "Params.pub.section" .id) "Params.pub.date" "desc" }}
+  {{ if $items }}
+  <section class="pub-section" id="{{ .id }}" aria-labelledby="{{ .id }}-h">
+    <h2 id="{{ .id }}-h">{{ .title }}</h2>
+    <ol class="pubs">
+      {{ $last := "" }}
+      {{ range $items }}{{ $p := .Params.pub }}
+      <li class="pub">
+        <span class="pub-year">{{ if ne $p.year $last }}{{ $p.year }}{{ end }}</span>{{ $last = $p.year }}
+        <div>
+          <h3 class="pub-title"><a href="{{ .RelPermalink }}">{{ $p.title }}</a></h3>
+          <p class="pub-authors">{{ partial "pub-authors.html" $p.authors }}</p>
+          <p class="pub-where">{{ partial "pub-where.html" $p }}</p>
+          {{ partial "pub-links.html" $p }}
+        </div>
+      </li>
+      {{ end }}
+    </ol>
+  </section>
+  {{ end }}
+  {{ end }}
+</main>
+{{ end }}

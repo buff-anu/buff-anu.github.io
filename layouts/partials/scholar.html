@@ -1,0 +1,23 @@
+{{/* Google Scholar (Highwire) tags and book metadata for one publication page. */}}
+{{ $p := .Params.pub }}
+{{ if not (in (slice "talk" "patent") $p.section) }}
+<meta name="citation_title" content="{{ $p.title }}">
+{{ range $p.authors }}<meta name="citation_author" content="{{ .full }}">
+{{ end -}}
+<meta name="citation_publication_date" content="{{ $p.year }}">
+{{ if eq $p.section "conference" }}<meta name="citation_conference_title" content="{{ $p.venue }}">{{ end }}
+{{ if eq $p.section "journal" }}<meta name="citation_journal_title" content="{{ $p.venue }}">{{ end }}
+{{ if eq $p.section "thesis" }}<meta name="citation_dissertation_institution" content="{{ $p.venue }}">{{ end }}
+{{ if eq $p.section "book" }}{{ with $p.venue }}<meta name="citation_publisher" content="{{ . }}">{{ end }}{{ end }}
+{{ with $p.doi }}<meta name="citation_doi" content="{{ . }}">{{ end }}
+{{ with $p.pdf }}<meta name="citation_pdf_url" content="{{ . | absURL }}">{{ end }}
+<meta name="citation_abstract_html_url" content="{{ .Permalink }}">
+{{ end }}
+{{ if and (eq $p.section "book") (not $p.status) }}
+<script type="application/ld+json">
+{{ $authors := slice }}{{ range $p.authors }}{{ $authors = $authors | append (dict "@type" "Person" "name" .name) }}{{ end }}
+{{ $book := dict "@context" "https://schema.org" "@type" "Book" "name" $p.title "author" $authors "datePublished" $p.year "url" .Permalink }}
+{{ with $p.venue }}{{ $book = merge $book (dict "publisher" (dict "@type" "Organization" "name" .)) }}{{ end }}
+{{ $book | jsonify | safeJS }}
+</script>
+{{ end }}

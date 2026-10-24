@@ -1,0 +1,28 @@
+{{ define "head" }}{{ partial "scholar.html" . }}{{ end }}
+{{ define "main" }}
+{{ $p := .Params.pub }}
+<main class="wrap page pub-page">
+  <p class="back"><a href="{{ .Parent.RelPermalink }}#{{ $p.section }}">All publications</a></p>
+  <h1 class="pub-page-title">{{ $p.title }}</h1>
+  <p class="pub-authors">{{ partial "pub-authors.html" $p.authors }}</p>
+  <p class="pub-where">{{ partial "pub-where.html" $p }}</p>
+  {{ partial "pub-links.html" $p }}
+  {{ with .Content }}<section class="abstract"><h2>Abstract</h2>{{ . }}</section>{{ end }}
+  {{ if ne $p.section "talk" }}
+  <section class="cite">
+    <div class="cite-head"><h2>Cite</h2><button type="button" class="copy" data-target="bib-{{ $p.key }}">Copy BibTeX</button></div>
+    <pre id="bib-{{ $p.key }}"><code>{{ $p.bibtex }}</code></pre>
+  </section>
+  <script>
+    document.querySelectorAll('.copy').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var t = document.getElementById(b.dataset.target).innerText;
+        navigator.clipboard.writeText(t).then(function () {
+          b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy BibTeX'; }, 2000);
+        }, function () { b.textContent = 'Select the text to copy'; });
+      });
+    });
+  </script>
+  {{ end }}
+</main>
+{{ end }}

@@ -1,7 +1,20 @@
 baseURL = "https://buff-anu.github.io/"
 languageCode = "en-us"
 title = "Anubhav Gupta"
-disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+disableKinds = ["taxonomy", "term", "RSS"]
+
+[[menus.main]]
+  name = "Publications"
+  pageRef = "/publications"
+  weight = 10
+[[menus.main]]
+  name = "Basilisk"
+  url = "https://www.anubhavgupta.info/basilisk"
+  weight = 20
+[[menus.main]]
+  name = "AbRuAn"
+  url = "https://abruan-documentation.readthedocs.io/en/develop/"
+  weight = 30
 
 [params]
   description = "Anubhav Gupta — GN&C for atmospheric entry, astrodynamics, and planetary defense. Open-source spacecraft simulation and technical books."
@@ -18,7 +31,7 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
     title = "Research"
     text = "Entry and re-entry GN&C with aero- and plasma-optical modeling, the radio-blackout problem, relative navigation, and multi-spacecraft asteroid deflection."
     linkText = "Publications"
-    url = "https://publications.anubhavgupta.info/"
+    url = "/publications/"
   [[params.tracks]]
     title = "Software"
     text = "AbRuAn, a Python framework for spacecraft simulation, and Docker-based workflows that make Basilisk simulations reproducible."
@@ -28,9 +41,9 @@ disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
     altUrl = "https://www.anubhavgupta.info/basilisk"
   [[params.tracks]]
     title = "Books"
-    text = "Testing of Transformers and Induction Machines, World of Physics, and upcoming titles on spacecraft simulation architecture and hypersonic plasma optics."
-    linkText = "Testing of Transformers and Induction Machines"
-    url = "https://www.anubhavgupta.info/book-ttim/"
+    text = "Testing of Transformers and Induction Machines, a practical guide to electrical machine testing, and World of Physics, a short introduction to physics for younger readers."
+    linkText = "All books"
+    url = "/publications/#book"
     altText = "Author page"
     altUrl = "https://www.amazon.com/author/anubhavgupta"
 

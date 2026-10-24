@@ -1,0 +1,1 @@
+{{- range $i, $a := . -}}{{ if $i }}, {{ end }}{{ if $a.me }}<strong>{{ $a.name }}</strong>{{ else }}{{ $a.name }}{{ end }}{{- end -}}

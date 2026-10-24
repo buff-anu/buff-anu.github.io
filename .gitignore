@@ -2,3 +2,9 @@ public/
 resources/
 .hugo_build.lock
 .DS_Store
+
+# Generated from bib/ by scripts/bib2json.py during the build
+assets/publications.json
+
+# The old publications site, kept locally as an archive
+research-site/

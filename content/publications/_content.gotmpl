@@ -1,0 +1,11 @@
+{{/* Builds one page per BibTeX entry from assets/publications.json,
+     which scripts/bib2json.py generates from bib/*.bib. */}}
+{{ with resources.Get "publications.json" }}
+  {{ range . | transform.Unmarshal }}
+    {{ $content := dict "mediaType" "text/markdown" "value" .abstract }}
+    {{ $params := dict "pub" . "description" (printf "%s (%s)" .title .year) }}
+    {{ $.AddPage (dict "path" .key "kind" "page" "title" .title "date" .date "params" $params "content" $content) }}
+  {{ end }}
+{{ else }}
+  {{ warnf "assets/publications.json is missing. Run: python3 scripts/bib2json.py" }}
+{{ end }}

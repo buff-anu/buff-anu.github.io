@@ -1,0 +1,7 @@
+{{- $p := . -}}
+{{- $bits := slice -}}
+{{- with $p.venue }}{{ $bits = $bits | append . }}{{ end -}}
+{{- with $p.detail }}{{ $bits = $bits | append . }}{{ end -}}
+{{- with $p.location }}{{ $bits = $bits | append . }}{{ end -}}
+{{- with $p.dates }}{{ $bits = $bits | append (printf "%s, %s" . $p.year) }}{{ else }}{{ with $p.year }}{{ if not (in $p.detail $p.year) }}{{ $bits = $bits | append . }}{{ end }}{{ end }}{{ end -}}
+{{- delimit $bits ", " -}}
