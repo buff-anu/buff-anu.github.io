@@ -13,7 +13,8 @@ Which section an entry lands in is decided by the file it is in and its type:
     site_only.bib    -> by type (@mastersthesis/@phdthesis: Theses)
 
 Website-only fields (LaTeX ignores them): pdf, poster, slides, amazon,
-worldcat, proquest, award. Add `website = {no}` to hide an entry.
+worldcat, proquest, award, cover (an image under static/, e.g.
+img/covers/x.jpg). Add `website = {no}` to hide an entry.
 `keywords` places an entry on the Research page: entry, gnc, navigation,
 planetary-defense (comma-separated; an entry can have several).
 `pubstate` (accepted, inpress, submitted) shows as a badge.
@@ -50,7 +51,7 @@ PREFIX = {"journal": "J", "conference": "C", "preprint": "PP", "book": "B",
 # Fields copied into the BibTeX block shown on each page (standard fields only).
 CITE_FIELDS = ["title", "author", "booktitle", "journal", "school", "publisher",
                "address", "edition", "volume", "number", "pages", "year", "date",
-               "type", "doi", "eprint", "archiveprefix", "primaryclass", "url", "note"]
+               "type", "isbn", "doi", "eprint", "archiveprefix", "primaryclass", "url", "note"]
 MONTHS = "jan feb mar apr may jun jul aug sep oct nov dec".split()
 
 
@@ -323,6 +324,8 @@ def build():
                 "bibtex": cite_block(etype, key, f),
                 "source": path.name,
                 "eprint": f.get("eprint", ""),
+                "isbn": f.get("isbn", "").strip(),
+                "cover": f.get("cover", "").strip().lstrip("/"),  # path under static/
                 # research areas from the standard `keywords` field (comma-separated)
                 "tags": [t.strip().lower() for t in f.get("keywords", "").split(",") if t.strip()],  # arXiv numbers order same-month preprints
             })

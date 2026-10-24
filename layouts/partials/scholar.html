@@ -8,7 +8,7 @@
 {{ if eq $p.section "conference" }}<meta name="citation_conference_title" content="{{ $p.venue }}">{{ end }}
 {{ if eq $p.section "journal" }}<meta name="citation_journal_title" content="{{ $p.venue }}">{{ end }}
 {{ if eq $p.section "thesis" }}<meta name="citation_dissertation_institution" content="{{ $p.venue }}">{{ end }}
-{{ if eq $p.section "book" }}{{ with $p.venue }}<meta name="citation_publisher" content="{{ . }}">{{ end }}{{ end }}
+{{ if eq $p.section "book" }}{{ with $p.venue }}<meta name="citation_publisher" content="{{ . }}">{{ end }}{{ with $p.isbn }}<meta name="citation_isbn" content="{{ . }}">{{ end }}{{ end }}
 {{ with $p.doi }}<meta name="citation_doi" content="{{ . }}">{{ end }}
 {{ with $p.pdf }}<meta name="citation_pdf_url" content="{{ . | absURL }}">{{ end }}
 <meta name="citation_abstract_html_url" content="{{ .Permalink }}">
@@ -18,6 +18,9 @@
 {{ $authors := slice }}{{ range $p.authors }}{{ $authors = $authors | append (dict "@type" "Person" "name" .name) }}{{ end }}
 {{ $book := dict "@context" "https://schema.org" "@type" "Book" "name" $p.title "author" $authors "datePublished" $p.year "url" .Permalink }}
 {{ with $p.venue }}{{ $book = merge $book (dict "publisher" (dict "@type" "Organization" "name" .)) }}{{ end }}
+{{ with $p.isbn }}{{ $book = merge $book (dict "isbn" .) }}{{ end }}
+{{ with $p.abstract }}{{ $book = merge $book (dict "description" .) }}{{ end }}
+{{ if and $p.cover (fileExists (printf "static/%s" $p.cover)) }}{{ $book = merge $book (dict "image" ($p.cover | absURL)) }}{{ end }}
 {{ $book | jsonify | safeJS }}
 </script>
 {{ end }}

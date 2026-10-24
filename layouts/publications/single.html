@@ -3,11 +3,15 @@
 {{ $p := .Params.pub }}
 <main class="wrap page pub-page">
   <p class="back"><a href="{{ .Parent.RelPermalink }}#{{ $p.section }}">All publications</a><span class="pub-num">{{ $p.num }}</span></p>
+  {{ $hasCover := and $p.cover (fileExists (printf "static/%s" $p.cover)) }}
+  {{ if $hasCover }}<div class="book-head"><img class="cover" src="{{ $p.cover | relURL }}" alt="Cover of {{ $p.title }}" loading="lazy"><div>{{ end }}
   <h1 class="pub-page-title">{{ $p.title }}</h1>
   <p class="pub-authors">{{ partial "pub-authors.html" $p.authors }}</p>
   <p class="pub-where">{{ partial "pub-where.html" $p }}</p>
+  {{ with $p.isbn }}<p class="pub-where">ISBN {{ . }}</p>{{ end }}
   {{ partial "pub-links.html" $p }}
-  {{ with .Content }}<section class="abstract"><h2>Abstract</h2>{{ . }}</section>{{ end }}
+  {{ if $hasCover }}</div></div>{{ end }}
+  {{ with .Content }}<section class="abstract"><h2>{{ if eq $p.section "book" }}About the Book{{ else }}Abstract{{ end }}</h2>{{ . }}</section>{{ end }}
   {{ if ne $p.section "talk" }}
   <section class="cite">
     <div class="cite-head"><h2>Cite</h2><button type="button" class="copy" data-target="bib-{{ $p.key }}">Copy BibTeX</button></div>
