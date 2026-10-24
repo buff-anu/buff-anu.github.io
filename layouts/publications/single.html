@@ -2,7 +2,7 @@
 {{ define "main" }}
 {{ $p := .Params.pub }}
 <main class="wrap page pub-page">
-  <p class="back"><a href="{{ .Parent.RelPermalink }}#{{ $p.section }}">All publications</a></p>
+  <p class="back"><a href="{{ .Parent.RelPermalink }}#{{ $p.section }}">All publications</a><span class="pub-num">{{ $p.num }}</span></p>
   <h1 class="pub-page-title">{{ $p.title }}</h1>
   <p class="pub-authors">{{ partial "pub-authors.html" $p.authors }}</p>
   <p class="pub-where">{{ partial "pub-where.html" $p }}</p>

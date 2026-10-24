@@ -145,12 +145,14 @@ h1 {
 .pub-section h2 { font: 700 1.6rem/1.1 var(--display); letter-spacing: -0.01em; margin: 0 0 1.25rem; }
 .pubs { list-style: none; margin: 0; padding: 0; }
 .pub {
-  display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1rem;
+  display: grid; grid-template-columns: 3.5rem 2.75rem minmax(0, 1fr); gap: 1rem;
   padding: 1rem 0;
   border-top: 1px solid var(--rule);
 }
 .pub:first-child { border-top: 0; padding-top: 0; }
 .pub-year { font: 500 1rem/1.6 var(--display); color: var(--slate); font-variant-numeric: tabular-nums; }
+.pub-num { font: 700 1rem/1.6 var(--display); color: var(--plasma); font-variant-numeric: tabular-nums; }
+.back { display: flex; justify-content: space-between; align-items: baseline; }
 .pub-title { font: 500 1.125rem/1.35 var(--display); margin: 0 0 .3rem; max-width: 62ch; }
 .pub-title a { color: var(--ink); text-decoration: none; }
 .pub-title a:hover { color: var(--plasma); text-decoration: underline; }
@@ -190,6 +192,7 @@ h1 {
 }
 
 @media (max-width: 40rem) {
-  .pub { grid-template-columns: 1fr; gap: .25rem; }
+  .pub { grid-template-columns: 2.75rem minmax(0, 1fr); gap: .25rem .75rem; }
+  .pub-year { grid-column: 1 / -1; }
   .pub-year:empty { display: none; }
 }

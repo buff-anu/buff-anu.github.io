@@ -41,6 +41,9 @@ SECTION_BY_TYPE = {
     "inproceedings": "conference",
     "misc": "preprint",
 }
+# Label prefix for each section's numbering (J3, C9, P2, ...).
+PREFIX = {"journal": "J", "conference": "C", "preprint": "P", "book": "B",
+          "thesis": "Th", "patent": "P", "talk": "T", "other": "O"}
 # Fields copied into the BibTeX block shown on each page (standard fields only).
 CITE_FIELDS = ["title", "author", "booktitle", "journal", "school", "publisher",
                "address", "edition", "volume", "number", "pages", "year", "date",
@@ -316,7 +319,14 @@ def build():
     keys = [e["key"] for e in entries]
     for k in {k for k in keys if keys.count(k) > 1}:
         problems.append(f"duplicate key {k}")
-    entries.sort(key=lambda e: e["date"], reverse=True)
+    # Number entries within each section, oldest = 1, so existing numbers stay
+    # the same when a newer entry is added (C9 stays C9 when C10 arrives).
+    for section, prefix in PREFIX.items():
+        items = sorted((e for e in entries if e["section"] == section),
+                       key=lambda e: (e["date"], e["key"]))
+        for n, e in enumerate(items, 1):
+            e["num"], e["n"] = f"{prefix}{n}", n
+    entries.sort(key=lambda e: (e["date"], e["key"]), reverse=True)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(entries, indent=1, ensure_ascii=False), encoding="utf-8")
     for p in problems:

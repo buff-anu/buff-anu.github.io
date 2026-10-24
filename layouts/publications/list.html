@@ -15,7 +15,7 @@
   </nav>
 
   {{ range $sections }}
-  {{ $items := sort (where $pages "Params.pub.section" .id) "Params.pub.date" "desc" }}
+  {{ $items := sort (where $pages "Params.pub.section" .id) "Params.pub.n" "desc" }}
   {{ if $items }}
   <section class="pub-section" id="{{ .id }}" aria-labelledby="{{ .id }}-h">
     <h2 id="{{ .id }}-h">{{ .title }}</h2>
@@ -24,6 +24,7 @@
       {{ range $items }}{{ $p := .Params.pub }}
       <li class="pub">
         <span class="pub-year">{{ if ne $p.year $last }}{{ $p.year }}{{ end }}</span>{{ $last = $p.year }}
+        <span class="pub-num">{{ $p.num }}</span>
         <div>
           <h3 class="pub-title"><a href="{{ .RelPermalink }}">{{ $p.title }}</a></h3>
           <p class="pub-authors">{{ partial "pub-authors.html" $p.authors }}</p>
