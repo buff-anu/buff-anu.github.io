@@ -315,6 +315,7 @@ def build():
                 "links": links,
                 "bibtex": cite_block(etype, key, f),
                 "source": path.name,
+                "eprint": f.get("eprint", ""),  # arXiv numbers order same-month preprints
             })
     keys = [e["key"] for e in entries]
     for k in {k for k in keys if keys.count(k) > 1}:
@@ -323,10 +324,10 @@ def build():
     # the same when a newer entry is added (C9 stays C9 when C10 arrives).
     for section, prefix in PREFIX.items():
         items = sorted((e for e in entries if e["section"] == section),
-                       key=lambda e: (e["date"], e["key"]))
+                       key=lambda e: (e["date"], e["eprint"], e["key"]))
         for n, e in enumerate(items, 1):
             e["num"], e["n"] = f"{prefix}{n}", n
-    entries.sort(key=lambda e: (e["date"], e["key"]), reverse=True)
+    entries.sort(key=lambda e: (e["date"], e["eprint"], e["key"]), reverse=True)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(entries, indent=1, ensure_ascii=False), encoding="utf-8")
     for p in problems:
