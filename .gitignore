@@ -8,3 +8,6 @@ assets/publications.json
 
 # The old publications site, kept locally as an archive
 research-site/
+
+# Private: CV source for writing pages, not published
+CV_*.pdf

@@ -1,0 +1,41 @@
+{{ define "main" }}
+{{ $pubs := (site.GetPage "/publications").RegularPages }}
+<main class="wrap page research">
+  <h1 class="page-title">{{ .Title }}</h1>
+  <p class="lede">{{ .Params.intro }}</p>
+  <nav class="jump" aria-label="Research areas">
+    {{ range .Params.areas }}<a href="#{{ .id }}">{{ .title }}</a>{{ end }}
+  </nav>
+
+  {{ range .Params.areas }}
+  {{ $tag := .tag }}
+  <section class="area" id="{{ .id }}" aria-labelledby="{{ .id }}-h">
+    <h2 id="{{ .id }}-h">{{ .title }}</h2>
+    <div class="area-body">
+      <div class="area-text">
+        {{ .summary | markdownify }}
+        {{ with .highlights }}<ul class="highlights">{{ range . }}<li>{{ . | markdownify }}</li>{{ end }}</ul>{{ end }}
+        {{ with .links }}<p class="area-links">{{ range . }}<a href="{{ .url | relURL }}">{{ .label }}</a>{{ end }}</p>{{ end }}
+      </div>
+      {{ $mine := slice }}{{ range $pubs }}{{ if in .Params.pub.tags $tag }}{{ $mine = $mine | append . }}{{ end }}{{ end }}
+      {{ with $mine }}
+      <aside class="area-pubs" aria-label="Papers in {{ $tag }}">
+        <h3>Papers and talks</h3>
+        <ol>
+          {{ range sort . "Params.pub.date" "desc" }}{{ $p := .Params.pub }}
+          <li>
+            <span class="pub-num">{{ $p.num }}</span>
+            <div>
+              <a href="{{ .RelPermalink }}">{{ $p.title }}</a>
+              <span class="area-pub-meta">{{ $p.venue }}, {{ $p.year }}{{ with $p.status }} ({{ lower . }}){{ end }}</span>
+            </div>
+          </li>
+          {{ end }}
+        </ol>
+      </aside>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+</main>
+{{ end }}

@@ -14,6 +14,9 @@ Which section an entry lands in is decided by the file it is in and its type:
 
 Website-only fields (LaTeX ignores them): pdf, poster, slides, amazon,
 worldcat, proquest, award. Add `website = {no}` to hide an entry.
+`keywords` places an entry on the Research page: entry, gnc, navigation,
+planetary-defense (comma-separated; an entry can have several).
+`pubstate` (accepted, inpress, submitted) shows as a badge.
 Only entries with Anubhav Gupta as an author are published.
 """
 import json
@@ -42,7 +45,7 @@ SECTION_BY_TYPE = {
     "misc": "preprint",
 }
 # Label prefix for each section's numbering (J3, C9, P2, ...).
-PREFIX = {"journal": "J", "conference": "C", "preprint": "P", "book": "B",
+PREFIX = {"journal": "J", "conference": "C", "preprint": "PP", "book": "B",
           "thesis": "Th", "patent": "P", "talk": "T", "other": "O"}
 # Fields copied into the BibTeX block shown on each page (standard fields only).
 CITE_FIELDS = ["title", "author", "booktitle", "journal", "school", "publisher",
@@ -234,7 +237,11 @@ def build():
             location, dates = clean_location(f.get("note", ""), year)
             publisher = latex_to_text(f.get("publisher", ""))
             status = ""
-            if "preparation" in publisher.lower():
+            pubstate = f.get("pubstate", "").strip().lower()
+            if pubstate:
+                status = {"accepted": "Accepted", "inpress": "In press", "forthcoming": "Forthcoming",
+                          "submitted": "Submitted", "inpreparation": "In preparation"}.get(pubstate, pubstate.capitalize())
+            elif "preparation" in publisher.lower():
                 status, publisher = "In preparation", ""
             elif year.isdigit() and int(year) > this_year:
                 status = "Forthcoming"
@@ -315,7 +322,9 @@ def build():
                 "links": links,
                 "bibtex": cite_block(etype, key, f),
                 "source": path.name,
-                "eprint": f.get("eprint", ""),  # arXiv numbers order same-month preprints
+                "eprint": f.get("eprint", ""),
+                # research areas from the standard `keywords` field (comma-separated)
+                "tags": [t.strip().lower() for t in f.get("keywords", "").split(",") if t.strip()],  # arXiv numbers order same-month preprints
             })
     keys = [e["key"] for e in entries]
     for k in {k for k in keys if keys.count(k) > 1}:

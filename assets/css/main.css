@@ -196,3 +196,32 @@ h1 {
   .pub-year { grid-column: 1 / -1; }
   .pub-year:empty { display: none; }
 }
+
+/* Shared lede on inner pages */
+.lede { font-size: 1.2rem; line-height: 1.55; max-width: 62ch; margin: 0 0 1.75rem; }
+
+/* Research */
+.area { padding-top: 3rem; scroll-margin-top: 1rem; }
+.area h2 { font: 700 clamp(1.6rem, 3.5vw, 2.1rem)/1.1 var(--display); letter-spacing: -0.015em; margin: 0 0 1.25rem; }
+.area-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+.area-text p { margin: 0 0 1rem; max-width: 62ch; }
+.highlights { margin: 0 0 1.25rem; padding-left: 1.1rem; max-width: 62ch; }
+.highlights li { margin-bottom: .6rem; }
+.highlights li p { margin: 0; }
+.highlights li::marker { color: var(--plasma); }
+.area-links { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-family: var(--display); font-weight: 500; }
+.area-pubs {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 1.25rem 1.25rem .5rem;
+}
+.area-pubs h3 { font: 700 1rem var(--display); margin: 0 0 .75rem; color: var(--slate); }
+.area-pubs ol { list-style: none; margin: 0; padding: 0; }
+.area-pubs li { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: .5rem; padding: 0 0 .9rem; }
+.area-pubs li a { font: 500 .975rem/1.35 var(--display); color: var(--ink); text-decoration: none; }
+.area-pubs li a:hover { color: var(--plasma); text-decoration: underline; }
+.area-pub-meta { display: block; color: var(--slate); font-size: .9rem; margin-top: .15rem; }
+.area-pubs .pub-num { font-size: .95rem; }
+
+@media (max-width: 52rem) {
+  .area-body { grid-template-columns: 1fr; gap: 1.5rem; }
+}
