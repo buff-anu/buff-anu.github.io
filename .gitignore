@@ -6,8 +6,5 @@ resources/
 # Generated from bib/ by scripts/bib2json.py during the build
 assets/publications.json
 
-# The old publications site, kept locally as an archive
-research-site/
-
-# Private: CV source for writing pages, not published
-CV_*.pdf
+# Full-resolution originals (print wraps etc.), kept locally
+_source/
